@@ -1,7 +1,11 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import AllQuotes from './pages/AllQuotes';
+<<<<<<< Updated upstream
 //import QuoteDetail from '../../pages/QuoteDetail';
+=======
+//import QuoteDetail from './pages/QuoteDetail.js';
+>>>>>>> Stashed changes
 import NewQuote from './pages/NewQuote.tsx';
 import NotFound from './pages/NotFound';
 import Layout from './components/layout/Layout'; 
