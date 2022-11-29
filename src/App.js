@@ -7,7 +7,7 @@ import PicDetail from './pages/PicDetail';
 import NewQuote from './pages/NewQuote.tsx';
 import NotFound from './pages/NotFound';
 import Layout from './components/layout/Layout'; 
-import SearchAppBar from './components/layout/demo.tsx';
+import SearchAppBar from './components/layout/SearchAppBar.tsx';
 import CustomizedList from'./components/layout/footer.tsx';
 import Cart from './components/cart/Cart';
 import { fetchDummyData } from './store/dummy-actions';
