@@ -1,6 +1,6 @@
 .item {
     margin: 1rem 0;
-    background-color: #575757;
+    background-color: hsla(89, 75%, 81%, 0.332);
     padding: 1rem;
   }
   
@@ -48,7 +48,7 @@
     border: 1px solid white;
     margin-left: 0.5rem;
     padding: 0.15rem 1rem;
-    color: white;
+    color: rgb(32, 31, 31);
   }
   
   .actions button:hover,

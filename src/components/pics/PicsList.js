@@ -1,22 +1,38 @@
-import * as React from 'react';
+import {useEffect } from 'react';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Grid from '@mui/material/Unstable_Grid2';
+import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import {useDispatch, useSelector } from 'react-redux';
+import { cartActions } from '../../store/dataslice';
 
-export default function TitlebarBelowMasonryImageList(props) {
+
+export default function PicsList( ) {
+  const pics = useSelector((state) => state.cart.pics);
+  const dispatch = useDispatch();
+
+  const Edithandler = (id) => {
+    dispatch(cartActions.setSelectedpic(id));
+   }
+
+
   return (
-    <Box sx={{ flexGrow: 1, p: 2 }}>
-      <ImageList variant="masonry" cols={4} gap={8} {...{ xs: 12, sm: 6, md: 3, lg: 3 }}>
-        {props.movies.map((item) => (
+    <Box sx={{ flexGrow: 1, p: 0 }}>
+      <ImageList variant="masonry" cols={4} gap={8} {...{ xs: 3, sm: 3, md: 3, lg: 2 }}>
+        { pics.map((item) => (
+           <Link to={`/imageDetail/${item.id}`}>
+           
           <ImageListItem key={item.id}>
-            
+           
             <img
-              src={`${item.url}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.download_url}?w=248&fit=crop&auto=format`}
+              srcSet={`${item.download_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
               loading="lazy"
+              onClick={() => Edithandler(item.id)}
               onMouseOver={(e) => (e.currentTarget.style = { transform: "scale(1.25)", overflow: "hidden" })}
               onMouseOut={(e) => (e.currentTarget.style = { transform: "scale(1)", overflow: "hidden" })}
               sx={{
@@ -39,6 +55,7 @@ export default function TitlebarBelowMasonryImageList(props) {
             />
             <ImageListItemBar position="bottom" title={item.author} />
           </ImageListItem>
+          </Link> 
         ))}
       </ImageList>
     </Box>
