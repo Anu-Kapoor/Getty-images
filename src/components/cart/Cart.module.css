@@ -1,3 +1,13 @@
+button{
+  background-color: #5b2e9f;
+  font-size: 18px;
+  border-radius: 4px;
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  margin-top: auto;
+ }
+
 .cart {
     max-width: 30rem;
     background-color: #313131;
@@ -14,3 +24,22 @@
     padding: 0;
     margin: 0;
   }
+
+  .right{
+    margin-left: 75%;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+
+
+ .right button{
+    background-color: #5b2e9f;
+    font-size: 16px;
+    border-radius: 4px;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    margin-top: auto;
+   }

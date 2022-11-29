@@ -7,18 +7,26 @@ import CartItem from './CartItem';
 const Cart = (props) => {
   const cartItems = useSelector((state) => state.cart.items);
   const totalQuan=useSelector((state)=> state.cart.totalQuantity);
+  const totalPrice=useSelector((state)=> state.cart.totalPrice);
 
   return (
     <Card className={classes.cart}>
       <h2>Shopping Cart</h2>
-      <h4>Items selected for purchase:  {totalQuan}     </h4>
+      <h5>Items selected for purchase:  {totalQuan}     </h5>
+      <div className={classes.right}>
+        
+      <h3>Subtotal: $  {totalPrice}  CAD   </h3>
+      <button>CONTINUE WITH PURCHASE</button>
+      <button>CREATE QUOTE</button>
+      </div>
+
       <ul>
         {cartItems.map((item) => (
           <CartItem
             key={item.id}
             item={{
               id: item.id,
-              title: item.name,
+              author: item.author,
               quantity: item.quantity,
               total: item.totalPrice,
               price: item.price,
