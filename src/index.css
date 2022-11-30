@@ -6,12 +6,33 @@ body {
   font-family: sans-serif;
   margin: 0;
   background-color: #e7f8f822;
+  
+
 }
 
+.portrait {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.portrait img {
+  transition: transform 0.5s linear;
+  height: 25%;
+}
+
+.portrait:hover img {
+  transform: scale(1.1);
+}
+
+/* .img {
+  
+  overflow: hidden;
+  transition: transform 0.5s linear;
+  }
 
 @media (min-width: 992px)
 {img:hover {
-    transform: scale(1.06);}}
+   transform: scale(1.06);}} */
 
 .centered {
   margin: 3rem auto;

@@ -18,7 +18,7 @@ const dataSlice = createSlice({
 
     setSelectedpic(state, action){
       const ID = action.payload;
-      state.selectedPic= state.pics.find(item => item.id == ID);
+      state.selectedPic= state.pics.find(item => item.id === ID);
     },
 
     replaceCart(state, action) {
@@ -27,10 +27,10 @@ const dataSlice = createSlice({
     },
     addItemToCart(state, action) {
       const newItem = action.payload;
-    //  const existingItem = state.items.find((item) => item.id === newItem.id);
+      const existingItem = state.items.find((item) => item.id === newItem.id);
       state.totalQuantity++;
       state.changed = true;
-   //   if (!existingItem) {
+      if (!existingItem) {
         state.totalPrice= state.totalPrice + newItem.cost;
         state.items.push({
         id: state.selectedPic.id,
@@ -39,18 +39,22 @@ const dataSlice = createSlice({
           quantity: 1,
         //  name: newItem.title,
         });
-   //   } 
-      // else {
-      //   // existingItem.quantity++;
-      //   state.totalPrice = existingItem.totalPrice + newItem.price;
-      // }
+     } 
+      else {
+        existingItem.quantity++;
+        state.totalPrice = state.totalPrice + newItem.price;
+      }
+    },
+
+    updateCartItemQuantity(state, action){
+
     },
 
     updateCartItemPrice(state, action) {
       const newItem = action.payload;
       const existingItem = state.items.find((x)=>x.id === newItem.id); 
       if(existingItem){
-        state.totalPrice = (state.totalPrice - existingItem.price + newItem.cost);
+        state.totalPrice = (state.totalPrice - (existingItem.price* existingItem.quantity) + (newItem.cost * existingItem.quantity));
         existingItem.price = newItem.cost;
       }
       

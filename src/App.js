@@ -11,6 +11,7 @@ import SearchAppBar from './components/layout/SearchAppBar.tsx';
 import CustomizedList from'./components/layout/footer.tsx';
 import Cart from './components/cart/Cart';
 import { fetchDummyData } from './store/dummy-actions';
+import AddUser from './components/Users/AddUser';
 
 
 import Box from '@mui/material/Box';
@@ -65,6 +66,9 @@ useEffect(() => {
         </Route>
         <Route path='/home' exact>
         <AllPics />
+        </Route>
+        <Route path='/add-user' exact>
+        <AddUser />
         </Route>
         <Route path='/quotes'>
           <AllPics />

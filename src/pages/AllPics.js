@@ -9,7 +9,7 @@ import PicsList from '../components/pics/PicsList';
 
     return(
       <React.Fragment>
-      <section><PicsList /></section>
+     <PicsList />
    </React.Fragment>
     )
 
