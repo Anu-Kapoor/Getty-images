@@ -1,11 +1,10 @@
-import Cart from "../components/cart/Cart";
+
 import { useEffect, useState } from "react";
-import { useParams, Route, Link, useRouteMatch } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../store/dataslice';
 
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -23,8 +22,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { TableHead } from "@mui/material";
 
-// import Image from 'material-ui-image';
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -34,50 +31,50 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
+const PicDetail = () => {
 
-const PicDetail = (props) => {
-
-  const licData=[
-    {"value": "extrasmall",
-      "label": "Extra small", 
-      "cost":50, 
-      "description":"773 x 456 px (10.74 x 6.33 in) 72 dpi|0.4 MP"},
-    {"value": "small",
-      "label": "Small", 
-      "cost":175, 
-      "description":"773 x 456 px (10.74 x 6.33 in) 72 dpi|0.4 MP"},
+  const licData = [
+    {
+      "value": "extrasmall",
+      "label": "Extra small",
+      "cost": 50,
+      "description": "773 x 456 px (10.74 x 6.33 in) 72 dpi|0.4 MP"
+    },
+    {
+      "value": "small",
+      "label": "Small",
+      "cost": 175,
+      "description": "773 x 456 px (10.74 x 6.33 in) 72 dpi|0.4 MP"
+    },
     {
       "value": "medium",
-      "label": "Medium", 
-      "cost":375, 
-      "description":"2258 x 1332 px (7.53 x 4.44 in)300 dpi|3.0 MP"},
+      "label": "Medium",
+      "cost": 375,
+      "description": "2258 x 1332 px (7.53 x 4.44 in)300 dpi|3.0 MP"
+    },
     {
       "value": "large",
-      "label": "Large", 
-    "cost":575, 
-    "description":"6984 x 4121 px (23.28 x 13.74 in) 300 dpi|28.8 MP"},
+      "label": "Large",
+      "cost": 575,
+      "description": "6984 x 4121 px (23.28 x 13.74 in) 300 dpi|28.8 MP"
+    },
   ]
 
-  
   const [value, setValue] = useState('large');
-  // const [checked, setchecked] = useState('true');
   const [selectedOption, setSelectedOption] = useState(licData[3]);
-  const [Add, setAdd]=useState(true);
-  const [update, setupdate]=useState(false);
-  const [go, setgo]=useState(true);
-  const [showCart, setshowCart]=useState(false);
+  const [Add, setAdd] = useState(true);
+  const [update, setupdate] = useState(false);
+  const [go, setgo] = useState(true);
+  const [existingCARTitem, setexistingCartitem] = useState(false);
+
   const dispatch = useDispatch();
-  const cartItems= useSelector((state) => state.cart.items);
-  const match = useRouteMatch();
-  const params = useParams();
+  const cartItems = useSelector((state) => state.cart.items);
   const selectedPic = useSelector((state) => state.cart.selectedPic);
-  const [existingCARTitem, setexistingCartitem]=useState(false);
-  
+  const params = useParams(); 
   const { imageId } = params;
 
   useEffect(() => {
-    console.log("useeffect1");
-    if (value != "freeze") {
+    if (value !== "freeze") {
       let dumm = licData.find(item => item.value === value);
       setSelectedOption(dumm);
     }
@@ -87,12 +84,10 @@ const PicDetail = (props) => {
   }, [dispatch, value, cartItems, imageId]);
 
   useEffect(() => {
-    console.log("useeffect2");
-    if (!existingCARTitem){
+    if (!existingCARTitem) {
       setupdate(false);
       setAdd(true);
       setgo(false);
-      console.log("not found in cart");
       return;
     }
 
@@ -100,22 +95,17 @@ const PicDetail = (props) => {
       setupdate(true);
       setAdd(false);
       setgo(false);
-      console.log("price is not equal", existingCARTitem.price, selectedOption.cost)
-      // setButtonLabel("UPDATE CART");
     }
 
     else if (existingCARTitem.price === selectedOption.cost) {
-      // setexistingCartitem(foundCartItem);
       setupdate(false);
       setAdd(false);
       setgo(true);
-      console.log("prices are equal", existingCARTitem.price, selectedOption.cost)
-      // setButtonLabel("GO TO CART");
     }
 
   }, [dispatch, selectedOption, existingCARTitem]);
-  
-  
+
+
   const handleChange = (event) => {
     setValue(event.target.value);
 
@@ -131,13 +121,9 @@ const PicDetail = (props) => {
     setupdate(false);
     setAdd(false);
     setgo(true);
-    console.log("update Price dispatch");
   };
 
-  // const gotoCart = (event) => {
-  //   event.preventDefault();
-  //   setshowCart(true);
-  // };
+
 
   const AddtoCart = (event) => {
     event.preventDefault();
@@ -150,101 +136,100 @@ const PicDetail = (props) => {
   };
 
   return (
-    
-      <Grid container spacing={2}>
-        <Grid item md={8} xs={12}>
-          <Item>
-            <img
-              src={selectedPic.download_url}
-              height="100%"
-              width="100%"
-              fit="scale-down"
-              alt={selectedPic.title}
-            />
-          </Item>
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <Item>
-            <Card >
-              <CardHeader
-                title="PURCHASE A LICENSE"
-                subheader="All Royalty-Free licenses include global use rights, comprehensive protection, simple pricing with volume discounts available."
-              />
-              <CardContent>
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="large"
-                    name="radio-buttons-group"
-                    value={value}
-                    onChange={handleChange}
-                  >
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 350 }} aria-label="simple table">
-                        <TableBody>
-                          {(licData.map((item, i) => (
-                            < TableRow key={item.cost}>
-                              <TableCell align="left">
-                                <FormControlLabel value={item.value} control={<Radio />} label={item.label} />
-                              </TableCell>
-                              <TableCell align="right">${item.cost}.00</TableCell>
-                            </TableRow>
-                          ))
-                          )}
-                          <TableRow>
-                            <TableCell colSpan={2} align="justify" >
-                              <FormControlLabel value="freeze" control={<Radio />} label="Market freeze" />
-                              <br />Protect your creative work - we'll remove this image from our site for as long as you need it.
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </RadioGroup>
-                  {(value != "freeze") && (<><h1>${selectedOption.cost}.00 CAD</h1>
-                    {(Add) && <button onClick={AddtoCart}>ADD TO CART</button> }
-                    {(update) && <button onClick={updateCart}>UPDATE CART</button> }
-                    {(go) && <>
-                      <Link to='/cart'>
-                      <button>GO TO CART</button>
-                      </Link>
-                    </>  }
-                    </>)}
-                
-                  {(value === "freeze") && (<button> CONTACT US</button>)}
-                </FormControl>
-              </CardContent>
-              <Item>
-            <Typography variant="body2" color="text.secondary">
-              <Table size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell colSpan={2}> Details: </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell> Credit: </TableCell>
-                    <TableCell> {selectedPic.author} </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell> Creative#: </TableCell>
-                    <TableCell> {selectedPic.id} </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell> License type: </TableCell>
-                    <TableCell> Royalty-free </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Typography>
-          </Item>
-            </Card>
-          </Item>
-          
-        </Grid>
+
+    <Grid container spacing={2}>
+      <Grid item md={8} xs={12}>
+        <Item>
+          <img
+            src={selectedPic.download_url}
+            height="100%"
+            width="100%"
+            fit="scale-down"
+            alt={selectedPic.title}
+          />
+        </Item>
       </Grid>
-   
+      <Grid item md={4} xs={12}>
+        <Item>
+          <Card >
+            <CardHeader
+              title="PURCHASE A LICENSE"
+              subheader="All Royalty-Free licenses include global use rights, comprehensive protection, simple pricing with volume discounts available."
+            />
+            <CardContent>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="large"
+                  name="radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                      <TableBody>
+                        {(licData.map((item, i) => (
+                          < TableRow key={item.cost}>
+                            <TableCell align="left">
+                              <FormControlLabel value={item.value} control={<Radio />} label={item.label} />
+                            </TableCell>
+                            <TableCell align="right">${item.cost}.00</TableCell>
+                          </TableRow>
+                        ))
+                        )}
+                        <TableRow>
+                          <TableCell colSpan={2} align="justify" >
+                            <FormControlLabel value="freeze" control={<Radio />} label="Market freeze" />
+                            <br />Protect your creative work - we'll remove this image from our site for as long as you need it.
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </RadioGroup>
+                {(value !== "freeze") && (<><h1>${selectedOption.cost}.00 CAD</h1>
+                  {(Add) && <button onClick={AddtoCart}>ADD TO CART</button>}
+                  {(update) && <button onClick={updateCart}>UPDATE CART</button>}
+                  {(go) && <>
+                    <Link to='/cart'>
+                      <button>GO TO CART</button>
+                    </Link>
+                  </>}
+                </>)}
+
+                {(value === "freeze") && (<button> CONTACT US</button>)}
+              </FormControl>
+            </CardContent>
+            <Item>
+              <Typography variant="body2" color="text.secondary">
+                <Table size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell colSpan={2}> Details: </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell> Credit: </TableCell>
+                      <TableCell> {selectedPic.author} </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell> Creative#: </TableCell>
+                      <TableCell> {selectedPic.id} </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell> License type: </TableCell>
+                      <TableCell> Royalty-free </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Typography>
+            </Item>
+          </Card>
+        </Item>
+      </Grid>
+    </Grid>
+
   );
 };
 

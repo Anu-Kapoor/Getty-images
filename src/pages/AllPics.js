@@ -1,21 +1,18 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import PicsList from '../components/pics/PicsList';
 
 
-  const AllPics = () => {
-    
+const AllPics = () => {
 
+  return (
+    <React.Fragment>
+      <PicsList />
+    </React.Fragment>
+  )
+};
 
-    return(
-      <React.Fragment>
-     <PicsList />
-   </React.Fragment>
-    )
-
-  };
-
- export default AllPics;
+export default AllPics;
 
 
     // const [pics, setpics] = useState([]);

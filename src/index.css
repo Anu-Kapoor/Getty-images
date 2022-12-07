@@ -34,6 +34,16 @@ body {
 {img:hover {
    transform: scale(1.06);}} */
 
+   .input_space{
+    margin-bottom: 10px;
+}
+
+   input{
+    height: 30px;
+    width: 20%;
+    font-size: 18px;
+}
+
 .centered {
   margin: 3rem auto;
   text-align: center;
@@ -79,4 +89,11 @@ body {
 .btn--flat:active {
   background-color: teal;
   color: white;
+}
+
+.carousel-item{
+  height: 450px;
+} 
+.carousel-item img{
+  height: 450px;
 }

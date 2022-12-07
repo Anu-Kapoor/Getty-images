@@ -9,7 +9,7 @@ export const fetchDummyData = () => {
       );
 
       if (!response.ok) {
-        throw new Error('Could not fetch the data!');
+        throw new Error('Could not fetch the photographs!');
       }
 
       const data = await response.json();
@@ -22,57 +22,43 @@ export const fetchDummyData = () => {
       console.log(dummyAPIdata);
       dispatch(
         cartActions.initiateDummy({
-        items: dummyAPIdata || [],
-         })
-       );
-    //    dispatch(cartActions.mapPics());
+          items: dummyAPIdata || [],
+        })
+      );
     } catch (error) {
       dispatch(
         uiActions.showNotification({
           status: 'error',
           title: 'Error!',
-          message: 'Fetching data failed!',
+          message: 'Fetching photographs from HTTP fetch API failed!',
         })
       );
     }
   };
 };
 
-export const sendCartData = (cart) => {
+export const fetchDummyQuotes = () => {
   return async (dispatch) => {
-    dispatch(
-      uiActions.showNotification({
-        status: 'pending',
-        title: 'Sending...',
-        message: 'Sending cart data!',
-      })
-    );
-
-    const sendRequest = async () => {
+    const fetchQuotes = async () => {
       const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/cart.json',
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            items: cart.items,
-            totalQuantity: cart.totalQuantity,
-          }),
-        }
+        'https://dummyjson.com/quotes'
       );
 
       if (!response.ok) {
-        throw new Error('Sending cart data failed.');
+        throw new Error('Could not fetch the quotes!');
       }
+
+      const data = await response.json();
+
+      return data;
     };
 
     try {
-      await sendRequest();
-
+      const dummyAPIdata = await fetchQuotes();
+      console.log(dummyAPIdata);
       dispatch(
-        uiActions.showNotification({
-          status: 'success',
-          title: 'Success!',
-          message: 'Sent cart data successfully!',
+        cartActions.initiateQuotes({
+          items: dummyAPIdata || [],
         })
       );
     } catch (error) {
@@ -80,9 +66,95 @@ export const sendCartData = (cart) => {
         uiActions.showNotification({
           status: 'error',
           title: 'Error!',
-          message: 'Sending cart data failed!',
+          message: 'Fetching quotes from HTTP fetch API failed!',
         })
       );
     }
   };
 };
+
+// export const fetchCartData = () => {
+//   return async (dispatch) => {
+//     const fetchData = async () => {
+//       const response = await fetch(
+//         'https://react-http-6b4a6.firebaseio.com/cart.json'
+//       );
+
+//       if (!response.ok) {
+//         throw new Error('Could not fetch cart data!');
+//       }
+
+//       const data = await response.json();
+
+//       return data;
+//     };
+
+//     try {
+//       const cartData = await fetchData();
+//       dispatch(
+//         cartActions.replaceCart({
+//           items: cartData.items || [],
+//           totalQuantity: cartData.totalQuantity,
+//         })
+//       );
+//     } catch (error) {
+//       dispatch(
+//         uiActions.showNotification({
+//           status: 'error',
+//           title: 'Error!',
+//           message: 'Fetching cart data failed!',
+//         })
+//       );
+//     }
+//   };
+// };
+
+
+// export const sendCartData = (cart) => {
+//   return async (dispatch) => {
+//     dispatch(
+//       uiActions.showNotification({
+//         status: 'pending',
+//         title: 'Sending...',
+//         message: 'Sending cart data!',
+//       })
+//     );
+
+//     const sendRequest = async () => {
+//       const response = await fetch(
+//         'https://react-http-6b4a6.firebaseio.com/cart.json',
+//         {
+//           method: 'PUT',
+//           body: JSON.stringify({
+//             items: cart.items,
+//             totalQuantity: cart.totalQuantity,
+//           }),
+//         }
+//       );
+
+//       if (!response.ok) {
+//         throw new Error('Sending cart data failed.');
+//       }
+//     };
+
+//     try {
+//       await sendRequest();
+
+//       dispatch(
+//         uiActions.showNotification({
+//           status: 'success',
+//           title: 'Success!',
+//           message: 'Sent cart data successfully!',
+//         })
+//       );
+//     } catch (error) {
+//       dispatch(
+//         uiActions.showNotification({
+//           status: 'error',
+//           title: 'Error!',
+//           message: 'Sending cart data failed!',
+//         })
+//       );
+//     }
+//   };
+// };

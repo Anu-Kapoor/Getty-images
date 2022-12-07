@@ -1,35 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { uiActions } from '../../store/ui-slice';
 import classes from './CartButton.module.css';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 
-const CartButton = (props) => {
-  const dispatch = useDispatch();
-  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
-
-  const toggleCartHandler = () => {
-    dispatch(uiActions.toggle());
-  };
+const CartButton = () => {
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartQuantity = cartItems.reduce((sum, obj) => { return sum + obj.quantity }, 0);
 
   return (
     <Link to='/cart'>
-      <button className={classes.button} onClick={toggleCartHandler}>
-      <span><ShoppingCartRoundedIcon/></span> 
-      <span>CART</span>
-      <span className={classes.badge}>{cartQuantity}</span>
-    </button>
+      <button className={classes.button}>
+        <span><ShoppingCartRoundedIcon /></span>
+        <span>CART</span>
+        <span className={classes.badge}>{cartQuantity}</span>
+      </button>
     </Link>
-
-
   );
 };
 
 export default CartButton;
 
-
-{/* <button className={classes.button} onClick={toggleCartHandler}>
-<span>My Cart</span>
-<span className={classes.badge}>{cartQuantity}</span>
-</button> */}
