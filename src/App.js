@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import React, {Fragment, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { uiActions } from './store/ui-slice';
@@ -109,45 +109,41 @@ useEffect(() => {
   
     <Layout>
       
-      <Switch>
-        <Route path='/' exact>
-          <Redirect to='/home' />
-        </Route>
-        <Route path='/home' exact>
-        <AllPics />
-        </Route>
-        <Route path='/home/Welcome' exact>
-        <AllPics />
-        </Route>
-        <Route path='/add-user' exact>
-        <AddUser />
-        </Route>
-        <Route path ='/checkout' exact>
-          <CheckOutForm />
-        </Route>
-        <Route path='/cart' exact>
-        <Cart />
-        </Route>
-        <Route path='/editorial' exact>
-        <SearchFilter />
-        </Route>
-
-        <Route path='/collections' exact>
-        <Collections />
-        </Route>
+      <Routes>
+        <Route path='/' element={<Navigate to="/home" />} />
+       
+        <Route path='/home' element ={<AllPics />} />
+        
+       
+        <Route path='/home/Welcome' element={<AllPics />} />
+        
+      
+        <Route path='/add-user' element = {  <AddUser />} />
+      
+     
+        <Route path ='cart/checkout' element = {<CheckOutForm />} />
+          
+       
+        <Route path='/cart' element = { <Cart />} />
+       
+  
+        <Route path='/editorial' element = {<SearchFilter />} />
         
 
-        <Route path='/new-quote'>
-        <NotFound />
-        </Route>
+        <Route path='/collections' element= { <Collections /> } />
+         
 
-        <Route path='/imageDetail/:imageId'>
-          <PicDetail />
-        </Route>
-        <Route path='*'>
+        <Route path='/new-quote' element = { <NotFound />} />
+        
+      
+
+        <Route path='/imageDetail/:imageId' element = { <PicDetail /> } />
+         
+       
+        {/* <Route path='*'>
           <NotFound />
-        </Route>
-      </Switch>
+        </Route> */}
+      </Routes>
     </Layout>
 
     <Box sx={{ bgcolor: 'rgba(113, 53, 233, 0.928)', p: 6, flexGrow: 1 }} component="footer">

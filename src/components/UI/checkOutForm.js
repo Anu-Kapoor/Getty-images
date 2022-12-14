@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import countriesList from './countriesdata';
 import { useForm, useController } from "react-hook-form";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
+ import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Select from "react-select";
 
 

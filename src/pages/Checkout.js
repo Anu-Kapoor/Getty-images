@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState , useEffect} from 'react';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
@@ -8,15 +8,15 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import useInput from '../components/hooks/use-input';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
+  import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 
 
 const CheckOut = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
         if(!localStorage.getItem('signin')){
-            history.push('/');
+            navigate('/');
             Swal.fire({
                 icon:'warning',
                 title: 'Warning!',
@@ -48,31 +48,6 @@ const CheckOut = () => {
     });
     const [error, setError] = useState([]);
 
-
-    useEffect(() => {
-
-        // let isMounted = true;
-
-        // axios.get(`/api/cart`).then(res=>{
-        //     if(isMounted)
-        //     {
-        //         if(res.data.status === 200)
-        //         {
-        //             setCart(res.data.cart);
-        //             setLoading(false);
-        //         }
-        //         else if(res.data.status === 401)
-        //         {
-        //             history.push('/');
-        //             Swal("Warning",res.data.message,"error");
-        //         }
-        //     }
-        // }); 
- 
-        // return () => {
-        //     isMounted = false
-        // };
-    }, [history]);
 
     const handleInput = (e) => {
         e.persist();

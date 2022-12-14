@@ -81,7 +81,7 @@ const PicDetail = () => {
     const foundCartItem = cartItems.find(item => item.id === selectedPic.id)
     setexistingCartitem(foundCartItem);
 
-  }, [dispatch, value, cartItems, imageId]);
+  }, [dispatch, value, cartItems, imageId, selectedPic.id]);
 
   useEffect(() => {
     if (!existingCARTitem) {
@@ -91,7 +91,7 @@ const PicDetail = () => {
       return;
     }
 
-    if (existingCARTitem.price != selectedOption.cost) {
+    if (existingCARTitem.price !== selectedOption.cost) {
       setupdate(true);
       setAdd(false);
       setgo(false);

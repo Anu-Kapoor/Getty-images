@@ -10,17 +10,17 @@ const MainNavigation = () => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink to='/home' activeClassName={classes.active}>
+            <NavLink to='/home' className={(navData)=> navData.isActive ? classes.active : ''}>
               CREATIVE
             </NavLink>
           </li>
           <li>
-            <NavLink to='/editorial' activeClassName={classes.active}>
+            <NavLink to='/editorial' className={(navData)=> navData.isActive ? classes.active : ''}>
               EDITORIAL
             </NavLink>
           </li>
           <li>
-            <NavLink to='/collections' activeClassName={classes.active}>
+            <NavLink to='/collections' className={(navData)=> navData.isActive ? classes.active : ''}>
               COLLECTIONS
             </NavLink>
           </li>
